@@ -106,16 +106,21 @@ var sumBelow = function(n) {
 // range(2,9); // [3,4,5,6,7,8]
 
 var range = function(x, y) {
+    if ( x===y ) {
+        return [];
+    }
     var result=[];
-    if (y-x > 1) {
-       result.push(x+1);
-       result.push(y-1);
-       return range(x+1 , y-1);
+    if (x === y-1 || x === y+1 ) {
+       return result;
     }
-    else{
-        return result.sort();
+    if ( x > y ) {
+        var tempNum = x-1;
     }
-    //put x+1 and y+1 in an array and return range (x+1,y+1)
+    if (x < y ) {
+        var tempNum = x +1;
+    }
+    result.push(tempNum);
+    return result.concat(range(tempNum, y));
 };
 
 // 7. Compute the exponent of a number.
@@ -130,7 +135,7 @@ var exponent = function(base, exp) {
     } 
     if (exp < 0) {
         
-        return  (1/(base * exponent (base,exp+1)));
+        return  1 / exponent(base, -exp);
     }
     if (exp > 1) {
         return base * exponent (base,exp-1);
